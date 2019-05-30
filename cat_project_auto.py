@@ -6,7 +6,10 @@ import time
 import signal
 import atexit
 import cv2
-import thread
+try:#py2
+	import thread
+except:#py3
+	import _thread as thread
 
 GPIO.cleanup()
 
@@ -57,7 +60,7 @@ def relay(i):
     if i==1:
         time.sleep(0.3)
         if GPIO.input(16)==0:
-            print "Allow attack"
+            print("Allow attack")
             GPIO.output(26,GPIO.HIGH)
             time.sleep(1)
             GPIO.output(26,GPIO.LOW)
@@ -73,7 +76,7 @@ try:
     GPIO.output(26,GPIO.LOW)
     time.sleep(2)
 except:
-    print "Error:unable to start thread"
+    print("Error:unable to start thread")#py2+py3
     
 old_cx=0;
 old_cy=0;
